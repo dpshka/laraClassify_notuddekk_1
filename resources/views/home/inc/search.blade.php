@@ -165,12 +165,22 @@ if (isset($searchFormOptions, $searchFormOptions['hide_on_mobile']) and $searchF
 						<div class="search-row fadeInUp">
 							<form id="search" name="search" action="{{ \App\Helpers\UrlGen::search() }}" method="GET">
 								<div class="row m-0">
-									<div class="col-md-5 col-sm-12 mb-1 mb-xl-0 mb-lg-0 mb-md-0 search-col relative">
+								<div class="col-md-3 col-sm-6 mb-1 mb-xl-0 mb-lg-0 mb-md-0 search-col relative">
 										<i class="icon-docs icon-append"></i>
 										<input type="text" name="q" class="form-control keyword has-icon" placeholder="{{ t('what') }}" value="">
 									</div>
+
+									<div class="col-md-2 col-sm-6 mb-1 mb-xl-0 mb-lg-0 mb-md-0 search-col relative">
+										<i class="icon-check icon-append"></i>
+										<input type="text" name="option" class="form-control keyword has-icon" placeholder="{{ 'option' }}" value="">
+									</div>
+
+									<div class="col-md-2 col-sm-6 mb-1 mb-xl-0 mb-lg-0 mb-md-0 search-col relative">
+										<i class="icon-th-list icon-append"></i>
+										<input type="text" name="optionvalue" class="form-control keyword has-icon" placeholder="{{ 'option value' }}" value="">
+									</div>
 									
-									<div class="col-md-5 col-sm-12 search-col relative locationicon">
+									<div class="col-md-3 col-sm-6 search-col relative locationicon">
 										<i class="icon-location-2 icon-append"></i>
 										<input type="hidden" id="lSearch" name="l" value="">
 										@if ($showMap)

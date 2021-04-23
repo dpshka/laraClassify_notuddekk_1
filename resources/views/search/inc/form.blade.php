@@ -1,7 +1,8 @@
 <?php
 // Keywords
 $keywords = rawurldecode(request()->get('q'));
-
+$option = rawurldecode(request()->get('option'));
+$optionvalue = rawurldecode(request()->get('optionvalue'));
 // Category
 $qCategory = (isset($cat) and !empty($cat)) ? $cat->id : request()->get('c');
 
@@ -22,7 +23,7 @@ if (isset($city) and !empty($city)) {
 			<form id="seach" name="search" action="{{ \App\Helpers\UrlGen::search() }}" method="GET">
 				<div class="row m-0">
 					
-					<div class="col-xl-3 col-md-3 col-sm-12 col-xs-12">
+					<div class="col-xl-2 col-md-2 col-sm-12 col-xs-12">
 						<select name="c" id="catSearch" class="form-control selecter">
 							<option value="" {{ ($qCategory=='') ? 'selected="selected"' : '' }}>
 								{{ t('all_categories') }}
@@ -37,11 +38,17 @@ if (isset($city) and !empty($city)) {
 						</select>
 					</div>
 					
-					<div class="col-xl-4 col-md-4 col-sm-12 col-xs-12">
+					<div class="col-xl-3 col-md-3 col-sm-12 col-xs-12">
 						<input name="q" class="form-control keyword" type="text" placeholder="{{ t('what') }}" value="{{ $keywords }}">
 					</div>
+					<div class="col-xl-2 col-md-2 col-sm-12 col-xs-12">
+						<input name="option" class="form-control keyword" type="text" placeholder="{{ 'option' }}" value="{{ $option }}">
+					</div>
+					<div class="col-xl-2 col-md-2 col-sm-12 col-xs-12">
+						<input name="optionvalue" class="form-control keyword" type="text" placeholder="{{ 'option value' }}" value="{{ $optionvalue }}">
+					</div>
 					
-					<div class="col-xl-3 col-md-3 col-sm-12 col-xs-12 search-col locationicon">
+					<div class="col-xl-2 col-md-2 col-sm-12 col-xs-12 search-col locationicon">
 						<i class="icon-location-2 icon-append"></i>
 						<input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon tooltipHere"
 							   placeholder="{{ t('where') }}" value="{{ $qLocation }}" title="" data-placement="bottom"
@@ -52,7 +59,7 @@ if (isset($city) and !empty($city)) {
 					<input type="hidden" id="lSearch" name="l" value="{{ $qLocationId }}">
 					<input type="hidden" id="rSearch" name="r" value="{{ $qAdmin }}">
 	
-					<div class="col-xl-2 col-md-2 col-sm-12 col-xs-12">
+					<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">
 						<button class="btn btn-block btn-primary">
 							<i class="fa fa-search"></i> <strong>{{ t('find') }}</strong>
 						</button>
