@@ -17,6 +17,7 @@ namespace App\Http\Controllers\Search;
 
 use App\Helpers\Search\PostQueries;
 use Torann\LaravelMetaTags\Facades\MetaTag;
+use App\Models\Field;
 
 class SearchController extends BaseController
 {
@@ -28,8 +29,8 @@ class SearchController extends BaseController
 	public function index()
 	{
 		view()->share('isIndexSearch', $this->isIndexSearch);
-		
 		// Search
+
 		$data = (new PostQueries($this->preSearch))->fetch();
 		
 		// Get Titles
@@ -40,7 +41,8 @@ class SearchController extends BaseController
 		// Meta Tags
 		MetaTag::set('title', $title);
 		MetaTag::set('description', $title);
-		
+
+		$data['field'] = Field::all();
 		return appView('search.results', $data);
 	}
 }

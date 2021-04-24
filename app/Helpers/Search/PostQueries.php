@@ -24,6 +24,9 @@ use App\Helpers\Search\Traits\Relations;
 use App\Helpers\Search\Traits\Select;
 use App\Models\Post;
 use App\Models\PostType;
+use App\Models\PostValue;
+use App\Models\Field;
+use App\Models\FieldOption;
 use Illuminate\Support\Facades\DB;
 
 class PostQueries
@@ -95,6 +98,7 @@ class PostQueries
 	public function fetch()
 	{
 		// Apply Requested Filters
+			
 		$this->applyFilters();
 		
 		// Apply Aggregation & Reorder Statements
@@ -132,7 +136,7 @@ class PostQueries
 		} else {
 			$count = collect(['all' => $posts->total()]);
 		}
-		
+
 		// Results Data
 		$data = [
 			'posts' => $posts,

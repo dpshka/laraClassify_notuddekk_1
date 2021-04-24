@@ -115,13 +115,24 @@ if (isset($searchFormOptions, $searchFormOptions['hide_on_mobile']) and $searchF
 									</div>
 
 									<div class="col-md-2 col-sm-6 mb-1 mb-xl-0 mb-lg-0 mb-md-0 search-col relative">
-										<i class="icon-check icon-append"></i>
-										<input type="text" name="option" class="form-control keyword has-icon" placeholder="{{ 'option' }}" value="">
+										<!-- <input type="text" name="option" class="form-control keyword has-icon" placeholder="{{ 'option' }}" value=""> -->
+										<select name="cf[0]" id="cf.0" class="form-control " >
+											<option value="" selected="selected" >
+												{{ 'Option' }}
+											</option>
+											@if (isset($field) and $field->count() > 0)
+												@foreach ($field as $itemCat)
+													<option value="{{ $itemCat->id }}" >
+														{{ $itemCat->name }}
+													</option>
+												@endforeach
+											@endif
+										</select>
 									</div>
 
 									<div class="col-md-2 col-sm-6 mb-1 mb-xl-0 mb-lg-0 mb-md-0 search-col relative">
 										<i class="icon-th-list icon-append"></i>
-										<input type="text" name="optionvalue" class="form-control keyword has-icon" placeholder="{{ 'option value' }}" value="">
+										<input type="text" name="cf[value]" id="cf.value" class="form-control keyword has-icon" placeholder="{{ 'option value' }}" value="">
 									</div>
 									
 									<div class="col-md-3 col-sm-6 search-col relative locationicon">

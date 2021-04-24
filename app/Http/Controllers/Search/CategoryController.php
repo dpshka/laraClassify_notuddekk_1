@@ -18,6 +18,7 @@ namespace App\Http\Controllers\Search;
 use App\Helpers\Search\PostQueries;
 use Illuminate\Support\Str;
 use Torann\LaravelMetaTags\Facades\MetaTag;
+use App\Models\Field;
 
 class CategoryController extends BaseController
 {
@@ -72,7 +73,7 @@ class CategoryController extends BaseController
 			}
 		}
 		view()->share('og', $this->og);
-		
+		$data['field'] = Field::all();
 		return appView('search.results', $data);
 	}
 }

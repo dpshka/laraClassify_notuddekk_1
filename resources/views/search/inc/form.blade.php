@@ -1,8 +1,8 @@
 <?php
 // Keywords
 $keywords = rawurldecode(request()->get('q'));
-$option = rawurldecode(request()->get('option'));
-$optionvalue = rawurldecode(request()->get('optionvalue'));
+$option = rawurldecode(request()->get('cf[0]'));
+$optionvalue = rawurldecode(request()->get('cf[value]'));
 // Category
 $qCategory = (isset($cat) and !empty($cat)) ? $cat->id : request()->get('c');
 
@@ -42,7 +42,19 @@ if (isset($city) and !empty($city)) {
 						<input name="q" class="form-control keyword" type="text" placeholder="{{ t('what') }}" value="{{ $keywords }}">
 					</div>
 					<div class="col-xl-2 col-md-2 col-sm-12 col-xs-12">
-						<input name="option" class="form-control keyword" type="text" placeholder="{{ 'option' }}" value="{{ $option }}">
+						<!-- <input name="option" class="form-control keyword" type="text" placeholder="{{ 'option' }}" value="{{ $option }}"> -->
+						<select name="option" id="option" class="form-control " >
+							<option value="" selected="selected" >
+								{{ 'Option' }}
+							</option>
+							@if (isset($field) and $field->count() > 0)
+								@foreach ($field as $itemCat)
+									<option value="{{ $itemCat->id }}" {{ ($option == $itemCat->id) ? ' selected="selected"' : '' }}>
+										{{ $itemCat->name }}
+									</option>
+								@endforeach
+							@endif
+						</select>
 					</div>
 					<div class="col-xl-2 col-md-2 col-sm-12 col-xs-12">
 						<input name="optionvalue" class="form-control keyword" type="text" placeholder="{{ 'option value' }}" value="{{ $optionvalue }}">

@@ -17,6 +17,7 @@ namespace App\Http\Controllers\Search;
 
 use App\Helpers\Search\PostQueries;
 use Torann\LaravelMetaTags\Facades\MetaTag;
+use App\Models\Field;
 
 class TagController extends BaseController
 {
@@ -56,7 +57,7 @@ class TagController extends BaseController
 		
 		// Translation vars
 		view()->share('uriPathTag', $tag);
-		
+		$data['field'] = Field::all();
 		return appView('search.results', $data);
 	}
 }

@@ -18,6 +18,7 @@ namespace App\Http\Controllers\Search;
 use App\Helpers\Search\PostQueries;
 use App\Helpers\UrlGen;
 use App\Models\User;
+use App\Models\Field;
 use Torann\LaravelMetaTags\Facades\MetaTag;
 
 class UserController extends BaseController
@@ -96,7 +97,7 @@ class UserController extends BaseController
 		// Translation vars
 		view()->share('uriPathUserId', $userId);
 		view()->share('uriPathUsername', $username);
-		
+		$data['field'] = Field::all();
 		return appView('search.results', $data);
 	}
 }

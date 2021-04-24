@@ -17,6 +17,7 @@ namespace App\Http\Controllers\Search;
 
 use App\Helpers\Search\PostQueries;
 use Torann\LaravelMetaTags\Facades\MetaTag;
+use App\Models\Field;
 
 class CityController extends BaseController
 {
@@ -57,7 +58,7 @@ class CityController extends BaseController
 		
 		MetaTag::set('title', $title);
 		MetaTag::set('description', $description);
-		
+		$data['field'] = Field::all();
 		return appView('search.results', $data);
 	}
 }

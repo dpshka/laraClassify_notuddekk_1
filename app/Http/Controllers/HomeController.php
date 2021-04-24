@@ -19,6 +19,7 @@ use App\Helpers\ArrayHelper;
 use App\Helpers\UrlGen;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Field;
 use App\Models\HomeSection;
 use App\Models\SubAdmin1;
 use App\Models\City;
@@ -94,7 +95,7 @@ class HomeController extends FrontController
 				}
 			}
 		}
-		
+		$data['field'] = Field::all();
 		// Get SEO
 		$this->setSeo($searchFormOptions);
 		

@@ -18,6 +18,7 @@ namespace App\Helpers\Search\Traits;
 use App\Helpers\Search\Traits\Filters\AuthorFilter;
 use App\Helpers\Search\Traits\Filters\CategoryFilter;
 use App\Helpers\Search\Traits\Filters\CustomFieldsFilter;
+use App\Helpers\Search\Traits\Filters\CustomFieldsSearch;
 use App\Helpers\Search\Traits\Filters\DateFilter;
 use App\Helpers\Search\Traits\Filters\DynamicFieldsFilter;
 use App\Helpers\Search\Traits\Filters\KeywordFilter;
@@ -29,7 +30,7 @@ use App\Helpers\Search\Traits\Filters\TagFilter;
 trait Filters
 {
 	use AuthorFilter, CategoryFilter, KeywordFilter, LocationFilter, TagFilter,
-		DateFilter, PostTypeFilter, PriceFilter, DynamicFieldsFilter, CustomFieldsFilter;
+		DateFilter, PostTypeFilter, PriceFilter, DynamicFieldsFilter, CustomFieldsFilter, CustomFieldsSearch;
 	
 	protected function applyFilters()
 	{
@@ -72,5 +73,7 @@ trait Filters
 		
 		// Custom Fields
 		$this->applyCustomFieldsFilter();
+		// front search fields
+		$this->applyCustomFieldsSearch();
 	}
 }
