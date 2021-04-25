@@ -106,55 +106,42 @@ if (isset($searchFormOptions, $searchFormOptions['hide_on_mobile']) and $searchF
 					@endif
 					
 					@if ($sForm['hideForm'] != '1')
-						<div class="search-row animated fadeInUp rounded" style="max-width:100% !important;">
+						<div class="search-row animated fadeInUp rounded" style="max-width:100% !important; background-color: #4682b4">
+						
 							<form id="search" name="search" action="{{ \App\Helpers\UrlGen::search() }}" method="GET">
 								<div class="row m-0">
-									<div class="col-md-3 col-sm-6 mb-1 mb-xl-0 mb-lg-0 mb-md-0 search-col relative">
-										<i class="icon-docs icon-append"></i>
-										<input type="text" name="q" class="form-control keyword has-icon" placeholder="{{ t('what') }}" value="">
-									</div>
-
-									<div class="col-md-2 col-sm-6 mb-1 mb-xl-0 mb-lg-0 mb-md-0 search-col relative">
+									@foreach($field as $fld)
+									<?php
+										$fieldId = 'cf.' . $fld->id;
+										$fieldName = 'cf[' . $fld->id . ']';
+										$fieldOptions = $fld->options()->get();
+									?>
+									@if(in_array($fld->name,['Breidd','Hæð','Felgustærð','Framleiðandi','Týpa']))
+									<div class="col-md-4 col-sm-6 mb-1 mb-xl-0 mb-lg-0 mb-md-0 search-col relative">
 										<!-- <input type="text" name="option" class="form-control keyword has-icon" placeholder="{{ 'option' }}" value=""> -->
-										<select name="cf[0]" id="cf.0" class="form-control " >
+										<select name="{{ $fieldName }}" id="{{ $fieldId }}" class="form-control " style="border:1px solid #4682b4; border-radius:3px !important;">
 											<option value="" selected="selected" >
-												{{ 'Option' }}
+												{{ $fld->name }}
 											</option>
-											@if (isset($field) and $field->count() > 0)
-												@foreach ($field as $itemCat)
-													<option value="{{ $itemCat->id }}" >
-														{{ $itemCat->name }}
+											@if ($fld->options->count() > 0)
+												@foreach ($fld->options as $itemOpt)
+													<option value="{{ $itemOpt->id }}" >
+														{{ $fld->name.' :  '.$itemOpt->value }}
 													</option>
 												@endforeach
 											@endif
 										</select>
 									</div>
-
-									<div class="col-md-2 col-sm-6 mb-1 mb-xl-0 mb-lg-0 mb-md-0 search-col relative">
-										<i class="icon-th-list icon-append"></i>
-										<input type="text" name="cf[value]" id="cf.value" class="form-control keyword has-icon" placeholder="{{ 'option value' }}" value="">
-									</div>
+									@endif
+									@endforeach
 									
-									<div class="col-md-3 col-sm-6 search-col relative locationicon">
-										<i class="icon-location-2 icon-append"></i>
-										<input type="hidden" id="lSearch" name="l" value="">
-										@if ($showMap)
-											<input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon tooltipHere"
-												   placeholder="{{ t('where') }}" value="" title="" data-placement="bottom"
-												   data-toggle="tooltip"
-												   data-original-title="{{ t('Enter a city name OR a state name with the prefix', ['prefix' => t('area')]) . t('State Name') }}">
-										@else
-											<input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon"
-												   placeholder="{{ t('where') }}" value="">
-										@endif
-									</div>
-									
-									<div class="col-md-1 col-sm-12 search-col">
-										<button class="btn btn-primary btn-search btn-block">
+									<div class="col-md-4 col-sm-12 search-col">
+										<button class="btn btn-primary btn-search btn-block" style="border:2px solid white">
 											<i class="icon-search"></i> <strong>{{ t('find') }}</strong>
 										</button>
 									</div>
 								</div>
+								
 							</form>
 						</div>
 					@endif

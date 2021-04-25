@@ -20,65 +20,41 @@ if (isset($city) and !empty($city)) {
 <div class="container">
 	<div class="search-row-wrapper rounded">
 		<div class="container">
-			<form id="seach" name="search" action="{{ \App\Helpers\UrlGen::search() }}" method="GET">
-				<div class="row m-0">
-					
-					<div class="col-xl-2 col-md-2 col-sm-12 col-xs-12">
-						<select name="c" id="catSearch" class="form-control selecter">
-							<option value="" {{ ($qCategory=='') ? 'selected="selected"' : '' }}>
-								{{ t('all_categories') }}
-							</option>
-							@if (isset($rootCats) and $rootCats->count() > 0)
-								@foreach ($rootCats as $itemCat)
-									<option {{ ($qCategory == $itemCat->id) ? ' selected="selected"' : '' }} value="{{ $itemCat->id }}">
-										{{ $itemCat->name }}
-									</option>
-								@endforeach
-							@endif
-						</select>
-					</div>
-					
-					<div class="col-xl-3 col-md-3 col-sm-12 col-xs-12">
-						<input name="q" class="form-control keyword" type="text" placeholder="{{ t('what') }}" value="{{ $keywords }}">
-					</div>
-					<div class="col-xl-2 col-md-2 col-sm-12 col-xs-12">
-						<!-- <input name="option" class="form-control keyword" type="text" placeholder="{{ 'option' }}" value="{{ $option }}"> -->
-						<select name="option" id="option" class="form-control " >
-							<option value="" selected="selected" >
-								{{ 'Option' }}
-							</option>
-							@if (isset($field) and $field->count() > 0)
-								@foreach ($field as $itemCat)
-									<option value="{{ $itemCat->id }}" {{ ($option == $itemCat->id) ? ' selected="selected"' : '' }}>
-										{{ $itemCat->name }}
-									</option>
-								@endforeach
-							@endif
-						</select>
-					</div>
-					<div class="col-xl-2 col-md-2 col-sm-12 col-xs-12">
-						<input name="optionvalue" class="form-control keyword" type="text" placeholder="{{ 'option value' }}" value="{{ $optionvalue }}">
-					</div>
-					
-					<div class="col-xl-2 col-md-2 col-sm-12 col-xs-12 search-col locationicon">
-						<i class="icon-location-2 icon-append"></i>
-						<input type="text" id="locSearch" name="location" class="form-control locinput input-rel searchtag-input has-icon tooltipHere"
-							   placeholder="{{ t('where') }}" value="{{ $qLocation }}" title="" data-placement="bottom"
-							   data-toggle="tooltip"
-							   data-original-title="{{ t('Enter a city name OR a state name with the prefix', ['prefix' => t('area')]) . t('State Name') }}">
-					</div>
-	
-					<input type="hidden" id="lSearch" name="l" value="{{ $qLocationId }}">
-					<input type="hidden" id="rSearch" name="r" value="{{ $qAdmin }}">
-	
-					<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">
-						<button class="btn btn-block btn-primary">
-							<i class="fa fa-search"></i> <strong>{{ t('find') }}</strong>
-						</button>
-					</div>
-					
+		<form id="search" name="search" action="{{ \App\Helpers\UrlGen::search() }}" method="GET">
+			<div class="row m-0">
+				@foreach($field as $fld)
+				<?php
+					$fieldId = 'cf.' . $fld->id;
+					$fieldName = 'cf[' . $fld->id . ']';
+					$fieldOptions = $fld->options()->get();
+				?>
+				@if(in_array($fld->name,['Breidd','Hæð','Felgustærð','Framleiðandi','Týpa']))
+				<div class="col-md-4 col-sm-6 mb-1 mb-xl-0 mb-lg-0 mb-md-0 search-col relative">
+					<!-- <input type="text" name="option" class="form-control keyword has-icon" placeholder="{{ 'option' }}" value=""> -->
+					<select name="{{ $fieldName }}" id="{{ $fieldId }}" class="form-control " style="border:1px solid #4682b4; border-radius:3px !important;" >
+						<option value="" selected="selected" >
+							{{ $fld->name }}
+						</option>
+						@if ($fld->options->count() > 0)
+							@foreach ($fld->options as $itemOpt)
+								<option value="{{ $itemOpt->id }}" >
+									{{ $fld->name.' :  '.$itemOpt->value }}
+								</option>
+							@endforeach
+						@endif
+					</select>
 				</div>
-			</form>
+				@endif
+				@endforeach
+				
+				<div class="col-md-4 col-sm-12 search-col">
+					<button class="btn btn-primary btn-search btn-block" style="border:2px solid white">
+						<i class="icon-search"></i> <strong>{{ t('find') }}</strong>
+					</button>
+				</div>
+			</div>
+			
+		</form>
 		</div>
 	</div>
 </div>

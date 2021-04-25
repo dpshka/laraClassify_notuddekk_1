@@ -73,7 +73,6 @@ trait Filters
 		
 		// Custom Fields
 		$this->applyCustomFieldsFilter();
-		// front search fields
-		$this->applyCustomFieldsSearch();
+		
 	}
 }
