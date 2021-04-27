@@ -109,36 +109,6 @@ if ($post->category) {
 											</div>
 										</div>
 
-										<!-- description -->
-										<?php $descriptionError = (isset($errors) and $errors->has('description')) ? ' is-invalid' : ''; ?>
-										<div class="form-group row required">
-											<?php
-												$descriptionErrorLabel = '';
-												$descriptionColClass = 'col-md-8';
-												if (config('settings.single.wysiwyg_editor') != 'none') {
-													$descriptionColClass = 'col-md-12';
-													$descriptionErrorLabel = $descriptionError;
-												} else {
-													$post->description = strip_tags($post->description);
-												}
-											?>
-											<label class="col-md-3 col-form-label{{ $descriptionErrorLabel }}" for="description">
-												{{ t('Description') }} <sup>*</sup>
-											</label>
-											<div class="{{ $descriptionColClass }}">
-												<textarea
-														class="form-control{{ $descriptionError }}"
-														id="description"
-														name="description"
-														rows="15"
-												>{{ old('description', $post->description) }}</textarea>
-												<small id="" class="form-text text-muted">{{ t('describe_what_makes_your_ad_unique') }}</small>
-                                            </div>
-										</div>
-										
-										<!-- cfContainer -->
-										<div id="cfContainer"></div>
-
 										<!-- price -->
 										<?php $priceError = (isset($errors) and $errors->has('price')) ? ' is-invalid' : ''; ?>
 										<div id="priceBloc" class="form-group row required">
@@ -172,6 +142,37 @@ if ($post->category) {
 												<small id="" class="form-text text-muted">{{ t('price_hint') }}</small>
 											</div>
 										</div>
+										
+										<!-- cfContainer -->
+										<div id="cfContainer"></div>
+
+										<!-- description -->
+										<?php $descriptionError = (isset($errors) and $errors->has('description')) ? ' is-invalid' : ''; ?>
+										<div class="form-group row required">
+											<?php
+												$descriptionErrorLabel = '';
+												$descriptionColClass = 'col-md-8';
+												if (config('settings.single.wysiwyg_editor') != 'none') {
+													$descriptionColClass = 'col-md-12';
+													$descriptionErrorLabel = $descriptionError;
+												} else {
+													$post->description = strip_tags($post->description);
+												}
+											?>
+											<label class="col-md-3 col-form-label{{ $descriptionErrorLabel }}" for="description">
+												{{ t('Description') }} <sup>*</sup>
+											</label>
+											<div class="{{ $descriptionColClass }}">
+												<textarea
+														class="form-control{{ $descriptionError }}"
+														id="description"
+														name="description"
+														rows="15"
+												>{{ old('description', $post->description) }}</textarea>
+												<small id="" class="form-text text-muted">{{ t('describe_what_makes_your_ad_unique') }}</small>
+                                            </div>
+										</div>
+
 										
 										<!-- country_code -->
 										<input id="countryCode" name="country_code" type="hidden" value="{{ !empty($post->country_code) ? $post->country_code : config('country.code') }}">

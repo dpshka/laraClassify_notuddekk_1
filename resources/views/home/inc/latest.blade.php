@@ -111,7 +111,7 @@ if (isset($latestOptions, $latestOptions['hide_on_mobile']) and $latestOptions['
 											$post_values = $post->postValues()->get();
 										?>
 										@foreach($post_values as $pv)
-										<span style="color:#4682B4">{{ $pv->field->name }}</span> : <span style="color:#CB2027"> {{ $pv->optionValue->value }} </span> &nbsp;&nbsp;
+										<span style="color:#4682B4">{{ $pv->field->name }}</span> : <span style="color:#CB2027"> {{ (isset($pv->optionValue->value))?$pv->optionValue->value:'-' }} </span> &nbsp;&nbsp;
 										@endforeach
 									</div>
 									
